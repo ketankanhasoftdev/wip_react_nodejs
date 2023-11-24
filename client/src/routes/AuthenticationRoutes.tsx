@@ -5,7 +5,7 @@ import PageNotFound from "../views/404";
 import AuthComponent from "../views/auth/AuthComponent";
 
 const AuthenticationRoutes = () => {
-  const list = {
+  const authRoutes = {
     path: "/",
     element: <AuthComponent />,
     children: [
@@ -28,7 +28,7 @@ const AuthenticationRoutes = () => {
     ],
   };
 
-  return useRoutes([list]);
+  return useRoutes([authRoutes]);
 };
 
 export default AuthenticationRoutes;

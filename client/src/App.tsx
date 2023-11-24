@@ -4,9 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 import AuthenticationRoutes from "./routes/AuthenticationRoutes";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
+import UserRoutes from "./routes";
 const App = () => {
   const { themeMode } = useSelector((state: RootState) => state.themeState);
-
+  const { userDetails } = useSelector((state: RootState) => state.authState);
   React.useEffect(() => {
     const body = document.querySelector("body");
     if (themeMode === "dark") {
@@ -18,10 +19,7 @@ const App = () => {
 
   return (
     <ThemeProvider mode={themeMode}>
-      <BrowserRouter>
-        <AuthenticationRoutes />
-        {/* <ThemeSwitch /> */}
-      </BrowserRouter>
+      <UserRoutes isLoggedIn={Boolean(userDetails?.isLoggedIn)} />
     </ThemeProvider>
   );
 };

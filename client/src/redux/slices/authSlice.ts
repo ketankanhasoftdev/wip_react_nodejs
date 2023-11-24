@@ -1,15 +1,22 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const intitialState={
-    userDetails:{}
-} as any
+interface AuthState {
+  userDetails: Record<string, any>; // Adjust the type based on your user details structure
+}
 
-export const authSlice=createSlice({
-    name:'authSlice',
-    intitialState,
-    reducers:{
-        userLogin:(state:any,action:<PayloadAction>)=>{
-            state.userDetails=action.payload
-        }
-    }
-})
+const initialState: AuthState = {
+  userDetails: {},
+};
+
+export const authSlice = createSlice({
+  name: 'authSlice',
+  initialState,
+  reducers: {
+    userReducer: (state, action: PayloadAction<any>) => {
+      state.userDetails = action.payload;
+    },
+  },
+});
+
+export const { userReducer } = authSlice.actions;
+export default authSlice.reducer;
