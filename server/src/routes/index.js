@@ -5,6 +5,7 @@ import {
   createUser,
   updateUser,
   deleteUser,
+  userLogin,
 } from "../controller/index.js";
 
 let router = express.Router();
@@ -18,5 +19,7 @@ router.post("/user", createUser);
 router.patch("/user/:id", updateUser);
 // delete user by id
 router.delete("/user/:id", deleteUser);
+// user login by username or email and password
+router.post("/login", userLogin);
 
 export default router;
