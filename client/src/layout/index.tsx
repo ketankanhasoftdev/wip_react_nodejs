@@ -1,7 +1,8 @@
+import { Box } from "@mui/joy";
 import React from "react";
 
-const Layout = () => {
-  return <div>Layout</div>;
+const Layout = (props: any) => {
+  return <Box>{props.children}</Box>;
 };
 
 export default Layout;

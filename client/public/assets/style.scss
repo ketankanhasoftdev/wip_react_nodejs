@@ -1,17 +1,29 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 }
+body{
+    padding-top: 100px !important;  
+ }
+
 .dark-mode{
     background-color: #0B0D0E;
     .link {
             color: #551657 !important;
         }
+        .MuiMenu-paper{
+            background: black !important;
+            color: white !important;
+        }
+                .MuiDrawer-paper{
+                    background: rgb(19, 18, 18);
+                    color: white !important;
+                }
 }
 
 .h-100vh{
-    min-height: 95vh !important;
+    min-height: 75vh !important;
 }
 
 .link{
@@ -35,4 +47,44 @@
     transform: translate(5%,50%) !important;
     width:90% !important;
     height: 0.1px !important;
+}
+.profile-edit-icon-dark{
+    font-size: 50px;
+    margin: 0 auto;
+    padding: 10px;
+    background: #551657 ;
+    color: white !important;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    &:hover {
+        background: #3a0b3b;
+        cursor: pointer;
+    }
+}
+
+.profile-edit-icon-light {
+    margin: 0 auto;
+    font-size: 50px;
+    padding: 10px;
+    background: #0B6BCB;
+    color: white !important;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    &:hover {
+        background: #085baf;
+        cursor: pointer;
+    }
+}
+
+.error-message{
+    color:red !important;
+    padding-left: 5px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
 }

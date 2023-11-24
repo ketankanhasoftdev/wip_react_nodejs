@@ -59,9 +59,11 @@ export default function FloatingLabelInput({
   register,
   type,
   placeholderText,
+  defaultValue,
   sx,
   required,
   endDecorator,
+  startDecorator,
   errors,
 }: any) {
   const InnerInput = React.forwardRef<
@@ -79,9 +81,11 @@ export default function FloatingLabelInput({
 
   return (
     <Input
+      startDecorator={startDecorator}
       endDecorator={endDecorator}
       slots={{ input: InnerInput }}
       error={Boolean(errors[name])}
+      defaultValue={defaultValue}
       {...register(name, { required: required })}
       slotProps={{
         input: {
