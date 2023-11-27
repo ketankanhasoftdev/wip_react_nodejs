@@ -3,11 +3,11 @@ import { Box, Button, Card, Divider, Grid, Typography } from "@mui/joy";
 import { styled } from "@mui/joy/styles";
 import Sheet from "@mui/joy/Sheet";
 import FloatingLabelInput from "../../components/StyledInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { AuthInputs } from "../../interface/interface";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import { loginThunk } from "../../redux/thunks/authThunk";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 const Item = styled(Sheet)(({ theme }) => ({
@@ -27,13 +27,15 @@ const Item = styled(Sheet)(({ theme }) => ({
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<AuthInputs>();
-
+  const { themeMode } = useSelector((state: RootState) => state.themeState);
+  const { screenSize } = useSelector((state: RootState) => state.layoutState);
   const [inputType, setInputType] = React.useState("password");
   const [dividerState, setDividerState] = React.useState("vr");
 
@@ -46,16 +48,8 @@ const Login = () => {
   };
 
   React.useEffect(() => {
-    // Attach the event listener when the component mounts
-    window.addEventListener("resize", () => {
-      window.innerWidth < 600 ? setDividerState("hr") : setDividerState("vr");
-    });
-
-    // Detach the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("resize", () => {});
-    };
-  }, []);
+    screenSize?.width < 600 ? setDividerState("hr") : setDividerState("vr");
+  }, [screenSize]);
 
   return (
     <Box
@@ -70,9 +64,11 @@ const Login = () => {
           <Grid xs={12} sm={6}>
             <Item>
               <Typography
-                color="primary"
                 level="h2"
-                sx={{ textAlign: "center" }}
+                sx={{
+                  textAlign: "center",
+                  color: themeMode === "dark" ? "white" : "#0B6BCB",
+                }}
               >
                 Login
               </Typography>
@@ -110,9 +106,17 @@ const Login = () => {
                   errors={errors}
                   endDecorator={
                     inputType === "password" ? (
-                      <IoIosEyeOff onClick={handleInputType} size={20} />
+                      <IoIosEyeOff
+                        className="show-password-icon"
+                        onClick={handleInputType}
+                        size={20}
+                      />
                     ) : (
-                      <IoIosEye onClick={handleInputType} size={20} />
+                      <IoIosEye
+                        className="show-password-icon"
+                        onClick={handleInputType}
+                        size={20}
+                      />
                     )
                   }
                   sx={{ mb: 2, width: "100%" }}

@@ -1,8 +1,6 @@
+import * as React from "react";
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
-import Sheet from "@mui/joy/Sheet";
 import { Box } from "@mui/joy";
-
-// const theme = extendTheme({ cssVarPrefix: "demo" });
 
 const theme = extendTheme({
   colorSchemes: {
@@ -18,54 +16,34 @@ const theme = extendTheme({
   },
 });
 
-export default function ThemeProvider(props: any) {
-  return props.mode === "dark" ? (
-    <CssVarsProvider
-      defaultMode="dark"
-      // the props below are specific to this demo,
-      // you might not need them in your app.
-      //
-      theme={theme}
-      // the selector to apply CSS theme variables stylesheet.
-      colorSchemeSelector="#demo_dark-mode-by-default"
-      //
-      // the local storage key to use
-      modeStorageKey="demo_dark-mode-by-default"
-      //
-      // set as root provider
-      disableNestedContext
-    >
-      <Box id="demo_dark-mode-by-default">
-        <Sheet sx={{ px: 3, py: 1.5, borderRadius: 0 }}>
+const ThemeContainer = (props: any) => {
+  return (
+    <>
+      {/* <Box
+        sx={{
+          position: "fixed",
+          top: "0",
+          zIndex: "2 !important",
+          width: "100%",
+        }}
+      >
+        <NavigationBar />
+      </Box> */}
+      <CssVarsProvider
+        defaultMode={props.mode}
+        theme={theme}
+        colorSchemeSelector="#demo_dark-mode-by-default"
+        modeStorageKey="demo_dark-mode-by-default"
+        disableNestedContext
+      >
+        <Box id="demo_dark-mode-by-default">
           <Box className={`dark-parent-container h-100vh`}>
             {props.children}
           </Box>
-        </Sheet>
-      </Box>
-    </CssVarsProvider>
-  ) : (
-    <CssVarsProvider
-      defaultMode="light"
-      // the props below are specific to this demo,
-      // you might not need them in your app.
-      //
-      theme={theme}
-      // the selector to apply CSS theme variables stylesheet.
-      colorSchemeSelector="#demo_dark-mode-by-default"
-      //
-      // the local storage key to use
-      modeStorageKey="demo_dark-mode-by-default"
-      //
-      // set as root provider
-      disableNestedContext
-    >
-      <Box id="demo_dark-mode-by-default">
-        <Sheet sx={{ px: 3, py: 1.5, borderRadius: 0 }}>
-          <Box className={`light-parent-container h-100vh`}>
-            {props.children}
-          </Box>
-        </Sheet>
-      </Box>
-    </CssVarsProvider>
+        </Box>
+      </CssVarsProvider>
+    </>
   );
-}
+};
+
+export default ThemeContainer;

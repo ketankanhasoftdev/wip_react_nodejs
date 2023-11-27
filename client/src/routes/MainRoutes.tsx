@@ -1,18 +1,21 @@
 import { useRoutes } from "react-router-dom";
 import PageNotFound from "../views/404";
+import MainComponent from "../views/main/MainComponent";
+import Account from "../views/main/Account";
+import UserList from "../views/main/UserList";
 
 const MainRoutes = () => {
   const list = {
     path: "/",
-    element: <></>,
+    element: <MainComponent />,
     children: [
       {
         path: "/",
-        element: <></>,
+        element: <Account />,
       },
       {
-        path: "home",
-        element: <></>,
+        path: "/user-list",
+        element: <UserList />,
       },
       {
         path: "*",

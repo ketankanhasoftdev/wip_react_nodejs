@@ -1,13 +1,11 @@
 import * as React from "react";
 import Switch from "@mui/joy/Switch";
-import { PiMoonBold } from "react-icons/pi";
-import { FiSun } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../redux/store";
+import { IoMdSunny, IoMdMoon } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
 import { manageTheme } from "../redux/slices/themeSlice";
-export default function ExampleThumbChild() {
+const ThemeSwitch = ({ themeMode }: any) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { themeMode } = useSelector((state: RootState) => state.themeState);
   const handleThemeSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.target.checked
       ? dispatch(manageTheme("dark"))
@@ -15,33 +13,36 @@ export default function ExampleThumbChild() {
   };
   return (
     <Switch
-      color={themeMode === "dark" ? "neutral" : "neutral"}
+      onChange={handleThemeSwitch}
       size="lg"
       slotProps={{
         input: { "aria-label": "Dark mode" },
         thumb: {
           children:
             themeMode === "dark" ? (
-              <PiMoonBold
+              <IoMdMoon
                 color="white"
-                style={{
-                  background: "black",
-                  borderRadius: "50%",
-                }}
+                style={{ background: "black", borderRadius: "50%" }}
+                size={20}
               />
             ) : (
-              <FiSun color="black" />
+              <IoMdSunny />
             ),
-          backgroundColor: "red",
+          sx: {
+            background: themeMode === "dark" ? "black" : "white",
+          },
         },
         track: {
-          sx: { background: themeMode === "dark" ? "#353536" : "#d7d7db" },
+          sx: {
+            background: themeMode === "dark" ? "" : "#0B6BCB",
+          },
         },
       }}
       sx={{
-        "--Switch-thumbSize": "16px",
+        "--Switch-thumbSize": "20px",
       }}
-      onChange={handleThemeSwitch}
     />
   );
-}
+};
+
+export default ThemeSwitch;
