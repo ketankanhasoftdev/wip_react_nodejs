@@ -117,9 +117,17 @@ const Register = () => {
                   errors={errors}
                   endDecorator={
                     inputType === "password" ? (
-                      <IoIosEyeOff onClick={handleInputType} size={20} />
+                      <IoIosEyeOff
+                        className="show-password-icon"
+                        onClick={handleInputType}
+                        size={20}
+                      />
                     ) : (
-                      <IoIosEye onClick={handleInputType} size={20} />
+                      <IoIosEye
+                        className="show-password-icon"
+                        onClick={handleInputType}
+                        size={20}
+                      />
                     )
                   }
                   sx={{ mb: 2, width: "100%" }}

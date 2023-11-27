@@ -3,7 +3,7 @@ import { Box, Button, Card, Divider, Grid, Typography } from "@mui/joy";
 import { styled } from "@mui/joy/styles";
 import Sheet from "@mui/joy/Sheet";
 import FloatingLabelInput from "../../components/StyledInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { AuthInputs } from "../../interface/interface";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +27,7 @@ const Item = styled(Sheet)(({ theme }) => ({
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -105,9 +106,17 @@ const Login = () => {
                   errors={errors}
                   endDecorator={
                     inputType === "password" ? (
-                      <IoIosEyeOff onClick={handleInputType} size={20} />
+                      <IoIosEyeOff
+                        className="show-password-icon"
+                        onClick={handleInputType}
+                        size={20}
+                      />
                     ) : (
-                      <IoIosEye onClick={handleInputType} size={20} />
+                      <IoIosEye
+                        className="show-password-icon"
+                        onClick={handleInputType}
+                        size={20}
+                      />
                     )
                   }
                   sx={{ mb: 2, width: "100%" }}

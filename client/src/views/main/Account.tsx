@@ -1,23 +1,27 @@
 import { Avatar, Box, Button, Card, Input, Typography } from "@mui/joy";
 import * as React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { AuthInputs } from "../../interface/interface";
+import { AuthInputs, UserType } from "../../interface/interface";
 import { FaUser } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { MdKey } from "react-icons/md";
 import { PiNotePencilBold } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import { updateUserThunk } from "../../redux/thunks/usersThunk";
 const Account = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const { userDetails } = useSelector((state: RootState) => state.authState);
   const { themeMode } = useSelector((state: RootState) => state.themeState);
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
-  } = useForm<AuthInputs>({
+  } = useForm<any>({
     defaultValues: {
       name: userDetails.name,
       email: userDetails.email,
@@ -26,6 +30,11 @@ const Account = () => {
   });
 
   const [editState, setEditState] = React.useState<boolean>(false);
+  const [inputType, setInputType] = React.useState("password");
+
+  const handleInputType = () => {
+    inputType === "text" ? setInputType("password") : setInputType("text");
+  };
 
   const handleEditState = (state: boolean) => {
     setEditState(state);
@@ -37,8 +46,15 @@ const Account = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<AuthInputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<UserType> = (data) => {
+    dispatch(
+      updateUserThunk({
+        id: userDetails._id,
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      })
+    ).then(() => setEditState(false));
   };
 
   return (
@@ -98,11 +114,26 @@ const Account = () => {
           <Box sx={{ mb: 1 }}>
             <Input
               size="md"
-              type="password"
-              placeholder="Enter Name"
+              type={inputType}
+              placeholder="Enter Password"
               error={Boolean(errors.password)}
               disabled={!editState}
               startDecorator={<MdKey />}
+              endDecorator={
+                inputType === "password" ? (
+                  <IoIosEyeOff
+                    className="show-password-icon"
+                    onClick={handleInputType}
+                    size={20}
+                  />
+                ) : (
+                  <IoIosEye
+                    className="show-password-icon"
+                    onClick={handleInputType}
+                    size={20}
+                  />
+                )
+              }
               {...register("password", { required: true })}
             />
             {errors.password && (
@@ -120,7 +151,10 @@ const Account = () => {
         {editState ? (
           <MdCancel
             className={`profile-edit-icon-${themeMode}`}
-            onClick={() => handleEditState(false)}
+            onClick={() => {
+              handleEditState(false);
+              reset();
+            }}
           />
         ) : (
           <PiNotePencilBold

@@ -1,8 +1,6 @@
 import * as React from "react";
 import { CssVarsProvider, extendTheme } from "@mui/joy/styles";
-import Sheet from "@mui/joy/Sheet";
 import { Box } from "@mui/joy";
-import NavigationBar from "../components/NavigationBar";
 
 const theme = extendTheme({
   colorSchemes: {
@@ -21,7 +19,7 @@ const theme = extendTheme({
 const ThemeContainer = (props: any) => {
   return (
     <>
-      <Box
+      {/* <Box
         sx={{
           position: "fixed",
           top: "0",
@@ -30,7 +28,7 @@ const ThemeContainer = (props: any) => {
         }}
       >
         <NavigationBar />
-      </Box>
+      </Box> */}
       <CssVarsProvider
         defaultMode={props.mode}
         theme={theme}
@@ -39,11 +37,9 @@ const ThemeContainer = (props: any) => {
         disableNestedContext
       >
         <Box id="demo_dark-mode-by-default">
-          <Sheet sx={{ px: 3, py: 1.5, borderRadius: 0 }}>
-            <Box className={`dark-parent-container h-100vh`}>
-              {props.children}
-            </Box>
-          </Sheet>
+          <Box className={`dark-parent-container h-100vh`}>
+            {props.children}
+          </Box>
         </Box>
       </CssVarsProvider>
     </>

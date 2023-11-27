@@ -6,10 +6,16 @@ import Layout from "./layout";
 import ThemeContainer from "./theme/ThemeProvider";
 import { updateScreenSize } from "./redux/slices/layoutSlice";
 import { userReducer } from "./redux/slices/authSlice";
+import { Toaster, toast } from "react-hot-toast";
+import { Button } from "@mui/joy";
+import { notificationFail } from "./redux/slices/toastSlice";
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { themeMode } = useSelector((state: RootState) => state.themeState);
   const { userDetails } = useSelector((state: RootState) => state.authState);
+  const { toastState } = useSelector(
+    (state: RootState) => state.notficationState
+  );
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
 
   React.useEffect(() => {
@@ -52,11 +58,35 @@ const App = () => {
     };
   }, []);
 
+  React.useEffect(() => {
+    if (toastState.type === "success") {
+      toast.success(toastState.message);
+    } else if (toastState.type === "error") {
+      toast.error(toastState.message);
+    } else {
+    }
+  }, [toastState]);
+
   return (
     <ThemeContainer mode={themeMode}>
-      <Layout>
-        <UserRoutes isLoggedIn={Boolean(userDetails?.isLoggedIn)} />
-      </Layout>
+      <UserRoutes isLoggedIn={Boolean(userDetails?.isLoggedIn)} />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 1500,
+          style: {
+            background: themeMode === "dark" ? "#000" : "#fff",
+            color: themeMode === "dark" ? "#fff" : "#000",
+          },
+        }}
+      />
+      {/* <Button onClick={() => dispatch(notificationFail("error"))}>toast</Button> */}
     </ThemeContainer>
   );
 };
