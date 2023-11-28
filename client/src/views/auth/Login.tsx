@@ -40,7 +40,7 @@ const Login = () => {
   const [dividerState, setDividerState] = React.useState("vr");
 
   const onSubmit: SubmitHandler<AuthInputs> = (data) => {
-    dispatch(loginThunk({ ...data }));
+    dispatch(loginThunk({ ...data })).then(() => navigate("/"));
   };
 
   const handleInputType = () => {

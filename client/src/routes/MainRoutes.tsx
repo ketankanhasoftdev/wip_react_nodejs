@@ -14,6 +14,10 @@ const MainRoutes = () => {
         element: <Account />,
       },
       {
+        path: "/account",
+        element: <Account />,
+      },
+      {
         path: "/user-list",
         element: <UserList />,
       },

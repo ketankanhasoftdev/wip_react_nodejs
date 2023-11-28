@@ -15,10 +15,14 @@ try {
 })
 
 export const updateUserThunk=createAsyncThunk('update/user',async(updatuserRequest:UserType,{dispatch})=>{
+    const {userDetails,...rest}=updatuserRequest
     try {
-       const {data}=await jwtAxios.patch(`/user/${updatuserRequest.id}`,{...updatuserRequest})
-        dispatch(userReducer({...data,isLoggedIn:true}))
+       const {data}=await jwtAxios.patch(`/user/${rest._id}`,{...rest})
+       if(userDetails._id===rest._id){
+           dispatch(userReducer({...data,isLoggedIn:true}))
+       }
         dispatch(notificationSuccess('Details updated successfully'))
+        dispatch(getAllUsers())
     } catch (error) {
         dispatch(notificationFail("Something went wrong !"))
     }

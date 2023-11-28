@@ -49,10 +49,11 @@ const Account = () => {
   const onSubmit: SubmitHandler<UserType> = (data) => {
     dispatch(
       updateUserThunk({
-        id: userDetails._id,
+        _id: userDetails._id,
         name: data.name,
         email: data.email,
         password: data.password,
+        userDetails: userDetails,
       })
     ).then(() => setEditState(false));
   };

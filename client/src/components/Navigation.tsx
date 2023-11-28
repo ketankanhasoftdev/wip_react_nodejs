@@ -31,6 +31,7 @@ const Navigation = () => {
   const handleLogout = () => {
     localStorage.removeItem("userData");
     dispatch(userReducer({}));
+    navigate("/");
   };
 
   return (
@@ -88,7 +89,8 @@ const Navigation = () => {
                 background: themeMode === "dark" ? "#340436" : "#084278",
                 height: "150px",
                 width: "150px",
-                m: 2,
+                mb: 1,
+                mt: 2,
                 mx: "auto",
               }}
             />
@@ -97,11 +99,30 @@ const Navigation = () => {
               sx={{
                 color: themeMode === "dark" ? "white" : "black",
                 textAlign: "center",
-                py: 1,
               }}
             >
               {userDetails.name}
             </Typography>
+            <Typography
+              sx={{
+                color: themeMode === "dark" ? "white" : "black",
+                textAlign: "center",
+                pb: 1,
+              }}
+            >
+              {userDetails.email}
+            </Typography>
+            <Box sx={{ textAlign: "center", mb: 3 }}>
+              <Button
+                onClick={() => {
+                  navigate("/account");
+                  setOpen(false);
+                }}
+                sx={{ borderRadius: "5px" }}
+              >
+                View Profile
+              </Button>
+            </Box>
             <List>
               <ListItem>
                 <ListItemButton

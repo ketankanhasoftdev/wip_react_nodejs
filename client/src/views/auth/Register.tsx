@@ -31,6 +31,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm<AuthInputs>();
@@ -41,7 +42,7 @@ const Register = () => {
   const [dividerState, setDividerState] = React.useState("vr");
 
   const onSubmit: SubmitHandler<AuthInputs> = (data) => {
-    dispatch(registrationThunk({ ...data }));
+    dispatch(registrationThunk({ ...data })).then(() => reset());
   };
 
   const handleInputType = () => {

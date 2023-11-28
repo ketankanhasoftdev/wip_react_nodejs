@@ -7,12 +7,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 const Layout = (props: any) => {
-  const navigate = useNavigate();
-  const { userDetails } = useSelector((state: RootState) => state.authState);
-  React.useEffect(() => {
-    navigate("/");
-  }, [userDetails]);
-
   return (
     <Box>
       <Navigation />

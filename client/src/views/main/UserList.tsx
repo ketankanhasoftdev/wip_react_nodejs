@@ -27,7 +27,7 @@ const UserList = () => {
       <Table aria-label="table variants" variant="outlined" hoverRow>
         <thead>
           <tr>
-            <th style={{ width: "8%" }}>SR. No.</th>
+            <th>SR. No.</th>
             <th>Image</th>
             <th>Name</th>
             <th>Email</th>
@@ -51,9 +51,7 @@ const UserList = () => {
                   color="success"
                   sx={{ mr: 1 }}
                   onClick={() => {
-                    setTimeout(() => {
-                      setShowUserDetails(true);
-                    }, 1000);
+                    setShowUserDetails(true);
                     setUserData({ ...row });
                   }}
                 >
